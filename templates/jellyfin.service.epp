@@ -1,10 +1,12 @@
+<%- | Optional[String]  $system_user,
+| -%>
 [Unit]
 Description=Jellyfin
 After=network.target
 
 [Service]
 Type=simple
-User=youruser
+User=<%= $system_user %>
 Restart=always
 ExecStart=/opt/jellyfin/start.sh
 

@@ -92,12 +92,7 @@ class jellyfin (
     owner   => $system_user,
     mode    => '0775',
     content => epp('jellyfin/server.sh.epp', {
-        'executable_dir' => $executable_dir,
-        'ffmpeg_dir'     => $ffmpeg_dir,
-        'data_dir'       => $data_dir,
-        'cache_dir'      => $cache_dir,
-        'config_dir'     => $config_dir,
-        'log_dir'        => $log_dir,
+        'system_user' => $system_user,
     }),
   }
 

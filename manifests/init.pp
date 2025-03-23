@@ -95,7 +95,6 @@ class jellyfin (
 
   file { "${executable_dir}/start.sh":
     ensure  => 'file',
-    target  => "${executable_dir}/start.sh",
     owner   => $system_user,
     content => epp('jellyfin/server.sh.epp', {
         'executable_dir' => $executable_dir,

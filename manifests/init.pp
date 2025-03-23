@@ -68,6 +68,7 @@ class jellyfin (
   archive { "${executable_dir}/${jellyfin_archive_name}":
     ensure  => 'present',
     extract => true,
+    extract_path => $executable_dir,
     source  => $jellyfin_download_url,
     user    => $system_user,
     group   => $system_user,
@@ -85,6 +86,7 @@ class jellyfin (
   archive { "${ffmpeg_dir}/${ffmpeg_archive_name}":
     ensure  => 'present',
     extract => true,
+    extract_path => $ffmpeg_dir,
     source  => $ffmpeg_download_url,
     user    => $system_user,
     group   => $system_user,

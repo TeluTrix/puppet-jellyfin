@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=youruser
 Restart=always
-ExecStart=/opt/jellyfin/jellyfin.sh
+ExecStart=/opt/jellyfin/start.sh
 
 [Install]
 WantedBy=multi-user.target

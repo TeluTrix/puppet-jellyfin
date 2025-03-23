@@ -115,4 +115,18 @@ class jellyfin (
     enable => true,
     # require => File['/etc/systemd/system/jellyfin.service'],
   }
+
+  firewalld_port { 'Open port for jellyfin to the public':
+    ensure   => present,
+    zone     => 'public',
+    port     => 8096,
+    protocol => 'tcp',
+  }
+
+  # Make sure firewalld is running
+  service { 'firewalld':
+    ensure => running,
+    enable => true,
+    name   => 'firewalld',
+  }
 }

@@ -108,7 +108,6 @@ class jellyfin (
 
   file { '/etc/systemd/system/jellyfin.service':
     ensure  => 'file',
-    target  => '/etc/systemd/system/jellyfin.service',
     mode    => '0644',
     content => epp('jellyfin/jellyfin.service.epp', {
         'executable_dir' => $executable_dir,

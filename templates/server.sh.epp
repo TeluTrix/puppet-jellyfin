@@ -3,7 +3,7 @@
       Optional[String]  $data_dir,
       Optional[String]  $cache_dir,
       Optional[String]  $config_dir,
-      Optional[String]  $log_file,
+      Optional[String]  $log_dir,
 | -%>
 #!/bin/bash
 JELLYFINDIR="<%= $executable_dir %>"
@@ -13,5 +13,5 @@ $JELLYFINDIR/jellyfin/jellyfin \
  -d <%= $data_dir %> \
  -C <%= $cache_dir %> \
  -c <%= $config_dir %> \
- -l <%= $log_file %> \
+ -l <%= $log_dir %> \
  --ffmpeg <%= $ffmpeg_dir %>/ffmpeg

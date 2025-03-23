@@ -9,7 +9,7 @@ class jellyfin (
   String $data_dir,
   String $cache_dir,
   String $config_dir,
-  String $log_file,
+  String $log_dir,
   String $system_user,
   String $system_platform,
   String $version,
@@ -51,9 +51,9 @@ class jellyfin (
     require => File['opt_dir'],
   }
 
-  file { 'log_filr':
-    ensure  => 'file',
-    path    => $log_file,
+  file { 'log_dir':
+    ensure  => 'folder',
+    path    => $log_dir,
     owner   => $system_user,
     require => File['opt_dir'],
   }
@@ -103,7 +103,7 @@ class jellyfin (
         'data_dir'       => $data_dir,
         'cache_dir'      => $cache_dir,
         'config_dir'     => $config_dir,
-        'log_file'       => $log_file,
+        'log_dir'        => $log_dir,
     }),
   }
 
@@ -117,13 +117,14 @@ class jellyfin (
         'data_dir'       => $data_dir,
         'cache_dir'      => $cache_dir,
         'config_dir'     => $config_dir,
-        'log_file'       => $log_file,
+        'log_dir'        => $log_dir,
     }),
   }
 
   service { 'systemd_service':
-    ensure => 'present',
-    name   => 'jellyfin.service',
-    enable => true,
+    ensure  => 'present',
+    name    => 'jellyfin.service',
+    enable  => true,
+    require => File['service_config'],
   }
 }

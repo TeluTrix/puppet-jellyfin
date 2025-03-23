@@ -16,49 +16,49 @@ class jellyfin (
   String $ffmpeg_version,
   String $ffmpeg_dir,
 ) {
-  file { 'opt_dir':
+  file { $executable_dir:
     ensure  => 'folder',
     path    => $executable_dir,
     owner   => $system_user,
-    require => User['system_user'],
+    require => User[$system_user],
   }
 
-  file { 'ffmpeg_dir':
+  file { $ffmpeg_dir:
     ensure  => 'folder',
     path    => $ffmpeg_dir,
     owner   => $system_user,
-    require => User['system_user'],
+    require => User[$system_user],
   }
 
-  file { 'data_dir':
+  file { $data_dir:
     ensure  => 'folder',
     path    => $data_dir,
     owner   => $system_user,
-    require => File['opt_dir'],
+    require => File[$executable_dir],
   }
 
-  file { 'cache_dir':
+  file { $cache_dir:
     ensure  => 'folder',
     path    => $cache_dir,
     owner   => $system_user,
-    require => File['opt_dir'],
+    require => File[$executable_dir],
   }
 
-  file { 'config_dir':
+  file { $config_dir:
     ensure  => 'folder',
     path    => $config_dir,
     owner   => $system_user,
-    require => File['opt_dir'],
+    require => File[$executable_dir],
   }
 
-  file { 'log_dir':
+  file { $log_dir:
     ensure  => 'folder',
     path    => $log_dir,
     owner   => $system_user,
-    require => File['opt_dir'],
+    require => File[$executable_dir],
   }
 
-  user { 'system_user':
+  user { $system_user:
     ensure => 'present',
     name   => $system_user,
   }
@@ -75,7 +75,7 @@ class jellyfin (
     require      => Archive[$ffmpeg_dir],
   }
 
-  file { 'jellyfin_symlink':
+  file { "${executable_dir}/current":
     ensure  => 'link',
     source  => "${executable_dir}/jellyfin_${version}",
     target  => "${executable_dir}/current",
@@ -90,10 +90,10 @@ class jellyfin (
     group        => $system_user,
     extract      => true,
     extract_path => $ffmpeg_dir,
-    require      => File['ffmpeg_dir'],
+    require      => File[$ffmpeg_dir],
   }
 
-  file { 'start_script':
+  file { "${executable_dir}/start.sh":
     ensure  => 'file',
     target  => "${executable_dir}/start.sh",
     owner   => $system_user,
@@ -107,7 +107,7 @@ class jellyfin (
     }),
   }
 
-  file { 'service_config':
+  file { '/etc/systemd/system/jellyfin.service':
     ensure  => 'file',
     target  => '/etc/systemd/system/jellyfin.service',
     mode    => '0644',
@@ -121,10 +121,10 @@ class jellyfin (
     }),
   }
 
-  service { 'systemd_service':
+  service { 'jellyfin.service':
     ensure  => 'present',
     name    => 'jellyfin.service',
     enable  => true,
-    require => File['service_config'],
+    require => File['/etc/systemd/system/jellyfin.service'],
   }
 }

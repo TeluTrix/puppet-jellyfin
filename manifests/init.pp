@@ -78,7 +78,6 @@ class jellyfin (
   file { "${executable_dir}/current":
     ensure  => 'link',
     source  => "${executable_dir}/jellyfin_${version}",
-    target  => "${executable_dir}/current",
     require => File[$executable_dir],
   }
 

@@ -17,42 +17,42 @@ class jellyfin (
   String $ffmpeg_dir,
 ) {
   file { $executable_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $executable_dir,
     owner   => $system_user,
     # require => User[$system_user],
   }
 
   file { $ffmpeg_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $ffmpeg_dir,
     owner   => $system_user,
     # require => User[$system_user],
   }
 
   file { $data_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $data_dir,
     owner   => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $cache_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $cache_dir,
     owner   => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $config_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $config_dir,
     owner   => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $log_dir:
-    ensure  => 'folder',
+    ensure  => 'directory',
     path    => $log_dir,
     owner   => $system_user,
     # require => File[$executable_dir],

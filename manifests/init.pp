@@ -20,42 +20,42 @@ class jellyfin (
     ensure  => 'folder',
     path    => $executable_dir,
     owner   => $system_user,
-    require => User[$system_user],
+    # require => User[$system_user],
   }
 
   file { $ffmpeg_dir:
     ensure  => 'folder',
     path    => $ffmpeg_dir,
     owner   => $system_user,
-    require => User[$system_user],
+    # require => User[$system_user],
   }
 
   file { $data_dir:
     ensure  => 'folder',
     path    => $data_dir,
     owner   => $system_user,
-    require => File[$executable_dir],
+    # require => File[$executable_dir],
   }
 
   file { $cache_dir:
     ensure  => 'folder',
     path    => $cache_dir,
     owner   => $system_user,
-    require => File[$executable_dir],
+    # require => File[$executable_dir],
   }
 
   file { $config_dir:
     ensure  => 'folder',
     path    => $config_dir,
     owner   => $system_user,
-    require => File[$executable_dir],
+    # require => File[$executable_dir],
   }
 
   file { $log_dir:
     ensure  => 'folder',
     path    => $log_dir,
     owner   => $system_user,
-    require => File[$executable_dir],
+    # require => File[$executable_dir],
   }
 
   user { $system_user:
@@ -72,14 +72,14 @@ class jellyfin (
     group        => $system_user,
     extract      => true,
     extract_path => $executable_dir,
-    require      => Archive[$ffmpeg_dir],
+    # require      => Archive[$ffmpeg_dir],
   }
 
   file { "${executable_dir}/current":
     ensure  => 'link',
     source  => "${executable_dir}/jellyfin_${version}",
     target  => "${executable_dir}/current",
-    require => Archive[$executable_dir],
+    # require => Archive[$executable_dir],
   }
 
   $ffmpeg_download_url = "https://repo.jellyfin.org/files/ffmpeg/linux/latest-7.x/${system_platform}/jellyfin-ffmpeg_${ffmpeg_version}_portable_linux64-gpl.tar.xz"
@@ -90,7 +90,7 @@ class jellyfin (
     group        => $system_user,
     extract      => true,
     extract_path => $ffmpeg_dir,
-    require      => File[$ffmpeg_dir],
+    # require      => File[$ffmpeg_dir],
   }
 
   file { "${executable_dir}/start.sh":
@@ -125,6 +125,6 @@ class jellyfin (
     ensure  => 'present',
     name    => 'jellyfin.service',
     enable  => true,
-    require => File['/etc/systemd/system/jellyfin.service'],
+    # require => File['/etc/systemd/system/jellyfin.service'],
   }
 }

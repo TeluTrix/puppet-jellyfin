@@ -63,7 +63,7 @@ class jellyfin (
     name   => $system_user,
   }
 
-  $jellyfin_download_url = "https://repo.jellyfin.org/files/server/linux/latest-stable/${system_platform}jellyfin_${version}-${system_platform}.tar.gz"
+  $jellyfin_download_url = "https://repo.jellyfin.org/files/server/linux/latest-stable/${system_platform}/jellyfin_${version}-${system_platform}.tar.gz"
 
   archive { $executable_dir:
     ensure       => 'present',

@@ -17,44 +17,44 @@ class jellyfin (
   String $ffmpeg_dir,
 ) {
   file { $executable_dir:
-    ensure  => 'directory',
-    path    => $executable_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $executable_dir,
+    owner  => $system_user,
     # require => User[$system_user],
   }
 
   file { $ffmpeg_dir:
-    ensure  => 'directory',
-    path    => $ffmpeg_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $ffmpeg_dir,
+    owner  => $system_user,
     # require => User[$system_user],
   }
 
   file { $data_dir:
-    ensure  => 'directory',
-    path    => $data_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $data_dir,
+    owner  => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $cache_dir:
-    ensure  => 'directory',
-    path    => $cache_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $cache_dir,
+    owner  => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $config_dir:
-    ensure  => 'directory',
-    path    => $config_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $config_dir,
+    owner  => $system_user,
     # require => File[$executable_dir],
   }
 
   file { $log_dir:
-    ensure  => 'directory',
-    path    => $log_dir,
-    owner   => $system_user,
+    ensure => 'directory',
+    path   => $log_dir,
+    owner  => $system_user,
     # require => File[$executable_dir],
   }
 
@@ -75,9 +75,9 @@ class jellyfin (
     # require      => Archive[$ffmpeg_dir],
   }
 
-  file { "${executable_dir}/current":
+  file { "${executable_dir}/jellyfin_${version}":
     ensure  => 'link',
-    source  => "${executable_dir}/jellyfin_${version}",
+    target  => "${executable_dir}/current",
     require => File[$executable_dir],
   }
 
@@ -119,9 +119,9 @@ class jellyfin (
   }
 
   service { 'jellyfin.service':
-    ensure  => 'running',
-    name    => 'jellyfin.service',
-    enable  => true,
+    ensure => 'running',
+    name   => 'jellyfin.service',
+    enable => true,
     # require => File['/etc/systemd/system/jellyfin.service'],
   }
 }

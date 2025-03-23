@@ -72,7 +72,7 @@ class jellyfin (
     group        => $system_user,
     extract      => true,
     extract_path => $executable_dir,
-    require      => Archive['ffmpeg_release'],
+    require      => Archive[$ffmpeg_dir],
   }
 
   file { 'jellyfin_symlink':

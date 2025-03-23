@@ -63,9 +63,9 @@ class jellyfin (
     name   => $system_user,
   }
 
-  $jellyfin_download_url = "https://repo.jellyfin.org/files/server/linux/latest-stable/${system_platform}/jellyfin_${version}-${system_platform}.tar.gz"
-
-  archive { $executable_dir:
+  $jellyfin_archive_name = "jellyfin_${version}-${system_platform}.tar.gz"
+  $jellyfin_download_url = "https://repo.jellyfin.org/files/server/linux/latest-stable/${system_platform}/${jellyfin_archive_name}"
+  archive { "${executable_dir}/${jellyfin_archive_name}":
     ensure  => 'present',
     extract => true,
     source  => $jellyfin_download_url,
@@ -80,8 +80,9 @@ class jellyfin (
     require => File[$executable_dir],
   }
 
-  $ffmpeg_download_url = "https://repo.jellyfin.org/files/ffmpeg/linux/latest-7.x/${system_platform}/jellyfin-ffmpeg_${ffmpeg_version}_portable_linux64-gpl.tar.xz"
-  archive { $ffmpeg_dir:
+  $ffmpeg_archive_name = "jellyfin-ffmpeg_${ffmpeg_version}_portable_linux64-gpl.tar.xz"
+  $ffmpeg_download_url = "https://repo.jellyfin.org/files/ffmpeg/linux/latest-7.x/${system_platform}/${ffmpeg_archive_name}"
+  archive { "${ffmpeg_dir}/${ffmpeg_archive_name}":
     ensure  => 'present',
     extract => true,
     source  => $ffmpeg_download_url,

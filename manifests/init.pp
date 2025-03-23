@@ -66,36 +66,31 @@ class jellyfin (
   $jellyfin_archive_name = "jellyfin_${version}-${system_platform}.tar.gz"
   $jellyfin_download_url = "https://repo.jellyfin.org/files/server/linux/latest-stable/${system_platform}/${jellyfin_archive_name}"
   archive { "${executable_dir}/${jellyfin_archive_name}":
-    ensure  => 'present',
-    extract => true,
+    ensure       => 'present',
+    extract      => true,
     extract_path => $executable_dir,
-    source  => $jellyfin_download_url,
-    user    => $system_user,
-    group   => $system_user,
+    source       => $jellyfin_download_url,
+    user         => $system_user,
+    group        => $system_user,
     # require      => Archive[$ffmpeg_dir],
-  }
-
-  file { "${executable_dir}/current":
-    ensure  => 'link',
-    target  => "${executable_dir}/jellyfin_${version}",
-    require => File[$executable_dir],
   }
 
   $ffmpeg_archive_name = "jellyfin-ffmpeg_${ffmpeg_version}_portable_linux64-gpl.tar.xz"
   $ffmpeg_download_url = "https://repo.jellyfin.org/files/ffmpeg/linux/latest-7.x/${system_platform}/${ffmpeg_archive_name}"
   archive { "${ffmpeg_dir}/${ffmpeg_archive_name}":
-    ensure  => 'present',
-    extract => true,
+    ensure       => 'present',
+    extract      => true,
     extract_path => $ffmpeg_dir,
-    source  => $ffmpeg_download_url,
-    user    => $system_user,
-    group   => $system_user,
-    require => File[$ffmpeg_dir],
+    source       => $ffmpeg_download_url,
+    user         => $system_user,
+    group        => $system_user,
+    require      => File[$ffmpeg_dir],
   }
 
   file { "${executable_dir}/start.sh":
     ensure  => 'file',
     owner   => $system_user,
+    mode    => '0775',
     content => epp('jellyfin/server.sh.epp', {
         'executable_dir' => $executable_dir,
         'ffmpeg_dir'     => $ffmpeg_dir,

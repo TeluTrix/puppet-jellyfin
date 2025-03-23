@@ -1,0 +1,9 @@
+---
+
+jellyfin::executable_dir: ''
+jellyfin::data_dir: ''
+jellyfin::cache_dir: ''
+jellyfin::config_dir: ''
+jellyfin::log_file: ''
+jellyfin::system_user: ''
+jellyfin::system_platform: ''

@@ -1,0 +1,17 @@
+<%- | Optional[String]  $executable_dir,
+      Optional[String]  $ffmpeg_dir,
+      Optional[String]  $data_dir,
+      Optional[String]  $cache_dir,
+      Optional[String]  $config_dir,
+      Optional[String]  $log_file,
+| -%>
+#!/bin/bash
+JELLYFINDIR="<%= $executable_dir %>"
+FFMPEGDIR="<%= $ffmpeg_dir %>"
+
+$JELLYFINDIR/jellyfin/jellyfin \
+ -d <%= $data_dir %> \
+ -C <%= $cache_dir %> \
+ -c <%= $config_dir %> \
+ -l <%= $log_file %> \
+ --ffmpeg <%= $ffmpeg_dir %>/ffmpeg

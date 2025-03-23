@@ -75,11 +75,11 @@ class jellyfin (
     # require      => Archive[$ffmpeg_dir],
   }
 
-  file { "${executable_dir}/jellyfin_${version}":
+  file { "${executable_dir}/current":
     ensure  => 'link',
     source  => "${executable_dir}/jellyfin_${version}",
     target  => "${executable_dir}/current",
-    # require => Archive[$executable_dir],
+    require => File[$executable_dir],
   }
 
   $ffmpeg_download_url = "https://repo.jellyfin.org/files/ffmpeg/linux/latest-7.x/${system_platform}/jellyfin-ffmpeg_${ffmpeg_version}_portable_linux64-gpl.tar.xz"

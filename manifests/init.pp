@@ -120,7 +120,7 @@ class jellyfin (
   }
 
   service { 'jellyfin.service':
-    ensure  => 'present',
+    ensure  => 'running',
     name    => 'jellyfin.service',
     enable  => true,
     # require => File['/etc/systemd/system/jellyfin.service'],

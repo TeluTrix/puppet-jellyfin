@@ -73,9 +73,9 @@ class jellyfin (
     # require      => Archive[$ffmpeg_dir],
   }
 
-  file { "${executable_dir}/jellyfin_${version}":
+  file { "${executable_dir}/current":
     ensure  => 'link',
-    target  => "${executable_dir}/current",
+    target  => "${executable_dir}/jellyfin_${version}",
     require => File[$executable_dir],
   }
 
